@@ -21,7 +21,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background-image: url(all/photo.jpg);
+  background-image: url("https://dl.dropbox.com/s/4jejvi4sid2alq6/photo.jpg?dl=0");
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -40,7 +40,7 @@ h1 {
   padding: 10px;
   font-size: 1.3em;
   position: fixed;
-  top: 10px;
+  top: 5px;
   margin: 30px;
   background-color: rgba(255,255,255,0.4);
   backdrop-filter: blur(6px);
@@ -56,7 +56,7 @@ h1 > span {
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-image: url("all/gradient.png");
+  background-image: url("https://dl.dropbox.com/s/viob767ydxud53r/gradient.png?dl=0");
   background-size: cover;
   -webkit-background-clip: text;
   color: transparent;
@@ -90,7 +90,7 @@ h1 > span {
 <script type="text/javascript" charset="utf-8">
 const container = document.querySelectorAll (".container")[0];
 const body = document.querySelectorAll("body")[0];
-var limit = 400;
+var limit = 80;
 
 let word = ["a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"];
 let hexcolor = (y) => {
@@ -105,11 +105,11 @@ let hexcolor = (y) => {
 for (let i=0; i<limit; i++) {
   body.innerHTML += `
 <div class="container">
-  <div class="box one" onclick="copy()"></div>
-  <div class="box two" onclick="copy()"></div>
-  <div class="box three" onclick="copy()"></div>
-  <div class="box four" onclick="copy()"></div>
-  <div class="box five" onclick="copy()"></div>
+  <div class="box one"></div>
+  <div class="box two"></div>
+  <div class="box three"></div>
+  <div class="box four"></div>
+  <div class="box five"></div>
 </div>
   `;
 }
@@ -133,15 +133,28 @@ for(let i=0; i<limit; i++) {
   four[i].innerHTML = color+"66";
   five[i].style.backgroundColor = color+"33";
   five[i].innerHTML = color+"33";
-
-}
-
-let copy = (el) => {
-  
 }
 
 
 
+
+
+
+const tds = document.querySelectorAll(".box");
+
+tds.forEach(td => {
+  td.onclick = function() {
+    document.execCommand("copy");
+  }
+
+  td.addEventListener("copy", function(event) {
+    event.preventDefault();
+    if (event.clipboardData) {
+      event.clipboardData.setData("text/plain", td.textContent);
+    //  console.log(event.clipboardData.getData("text"))
+    }
+  });
+})
 
 </script>
   </body>

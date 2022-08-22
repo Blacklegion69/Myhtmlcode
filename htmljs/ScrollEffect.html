@@ -30,6 +30,7 @@ section {
 section .content {
   position: relative;
   max-width: 80%;
+  overflow: hidden;
 }
 section .content h2 {
   margin: 0;
@@ -88,10 +89,12 @@ section .content p {
   font-weight: 900;
   text-align: justify;
   opacity: 0;
+  transform: translateX(500px);
 }
 section .content p[data-scroll=in] {
   opacity: 100%;
-  transition-delay: 0.7s;
+  transform: translateX(0px);
+  transition-delay: 0.2s;
 }
 section .content a {
   position: relative;
