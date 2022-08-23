@@ -9,12 +9,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: all 0.5s linear;
+  transition: all 0.35s linear;
+  transition-delay: 0s;
 }
 :root {
   --width: 400px;
 }
 body {
+  width: 100%;
   min-height: 100vh;
   background-color: #ea8120ef;
   display: flex;
@@ -70,6 +72,13 @@ h1 > span {
   align-items: center;
   margin: 5px;
   background-color: rgba(255,255,255,0.64);
+  transform: rotatex(360deg) translateX(-400px);
+  opacity: 0;
+  
+}
+.container[data-scroll=in] {
+  opacity: 100%;
+  transform: rotatex(0deg) translateX(0px);
 }
 .container .box {
   width: calc(var(--width)/5);
@@ -79,6 +88,14 @@ h1 > span {
   align-items: center;
   font-weight: 900;
   font-size: 0.8em;
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.4s;
+}
+.container .box[data-scroll=in] {
+  opacity: 100%;
+  transform: scale(1);
+  transition-delay: 0.53s;
 }
 </style>
   </head>
@@ -87,7 +104,9 @@ h1 > span {
     
 <h1> <span> Hexadecimal color palattes </span> </h1>
 
+<script src="All/scroll-out.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
+
 const container = document.querySelectorAll (".container")[0];
 const body = document.querySelectorAll("body")[0];
 var limit = 80;
@@ -119,7 +138,7 @@ const two = document.querySelectorAll(".two");
 const three = document.querySelectorAll(".three");
 const four = document.querySelectorAll(".four");
 const five = document.querySelectorAll(".five");
-
+const containers = document.querySelectorAll (".container");
 
 for(let i=0; i<limit; i++) {
   let color = ("#"+hexcolor(""));
@@ -141,12 +160,10 @@ for(let i=0; i<limit; i++) {
 
 
 const tds = document.querySelectorAll(".box");
-
-tds.forEach(td => {
+tds.forEach(function(td){
   td.onclick = function() {
     document.execCommand("copy");
   }
-
   td.addEventListener("copy", function(event) {
     event.preventDefault();
     if (event.clipboardData) {
@@ -154,6 +171,12 @@ tds.forEach(td => {
     //  console.log(event.clipboardData.getData("text"))
     }
   });
+})
+
+
+
+ScrollOut({
+  targets: ".container,.box",
 })
 
 </script>
